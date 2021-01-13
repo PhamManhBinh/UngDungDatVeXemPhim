@@ -1,0 +1,58 @@
+﻿@model CINEMA.EF.SuatChieu
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Sửa Suất Chiếu</h1>
+    <div class="row justify-content-center">
+
+        <div class="col-xl-8 col-lg-12 col-md-9">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.id)
+                <div class="form-group">
+                    @Html.EditorFor(model => model.Ngay, new { htmlAttributes = new { @class = "form-control form-control-user", @id = "exampleInputEmail", @placeholder = "Ngày Chiếu...", type = "date", onfocus = "(this.type='date')", aria_describedby = "emailHelp" } })
+                    @Html.ValidationMessageFor(model => model.Ngay ,"", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.ThoiDiemBatDau, new { htmlAttributes = new { @class = "form-control form-control-user", @id = "exampleInputEmail", @placeholder = "Thời Điểm Bắt Đầu (HH:mm)...", type = "text", aria_describedby = "emailHelp" } })
+                    @Html.ValidationMessageFor(model => model.ThoiDiemBatDau, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.ThoiDiemKetThuc, new { htmlAttributes = new { @class = "form-control form-control-user", @id = "exampleInputEmail", @placeholder = "Thời Điểm Kết Thúc (HH:mm)...", type = "text", aria_describedby = "emailHelp" } })
+                    @Html.ValidationMessageFor(model => model.ThoiDiemKetThuc, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="CumRapId">Chọn Phim</label>
+                    @Html.DropDownList("PhimId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PhimId, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="CumRapId">Chọn Rạp</label>
+                    @Html.DropDownList("RapId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.RapId, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.GiaVe, new { htmlAttributes = new { @class = "form-control form-control-user", @id = "exampleInputEmail", @placeholder = "Giá Vé...", aria_describedby = "emailHelp" } })
+                    @Html.ValidationMessageFor(model => model.GiaVe, "", new { @class = "text-danger" })
+                </div>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            }
+        </div>
+    </div>
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    @Html.ActionLink("Quay lại", "Index")
+
+</div>
+<!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->

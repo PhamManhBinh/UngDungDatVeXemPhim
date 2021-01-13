@@ -1,0 +1,71 @@
+﻿@model CINEMA.EF.CumRap
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Xóa Cụm Rạp</h1>
+    <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-12 col-md-9">
+            <h3 class="h3 mb-2 text-gray-800">Bạn có chắc chắn muốn xóa cụm rạp này không?</h3>
+            <dl class="dl-horizontal">
+                <div class="form-group">
+                    <dt>
+                        ID Cụm Rạp
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.id)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TenCum)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TenCum)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DiaChi)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DiaChi)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Maps)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Maps)
+                    </dd>
+                </div>
+                
+            </dl>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-danger" /> |
+                    @Html.ActionLink("Quay lại", "Index")
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+
+</div>
+<!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->

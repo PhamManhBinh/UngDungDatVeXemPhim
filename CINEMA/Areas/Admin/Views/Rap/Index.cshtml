@@ -1,0 +1,76 @@
+﻿@model IEnumerable<CINEMA.EF.Rap>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        Rạp @Html.ActionLink("+", "Create", new { controller = "Rap" }, new { @class = "btn btn-success btn-circle pull-left" })
+    </h1>
+    <div class="text-danger">
+        @ViewBag.Error
+    </div>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.id)</th>
+                            <th>@Html.DisplayNameFor(model => model.TenRap)</th>
+                            <th>@Html.DisplayNameFor(model => model.LoaiRap)</th>
+                            <th>@Html.DisplayNameFor(model => model.KTNgang)</th>
+                            <th>@Html.DisplayNameFor(model => model.KTDoc)</th>
+                            <th>@Html.DisplayNameFor(model => model.CumRap.TenCum)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.id)</th>
+                            <th>@Html.DisplayNameFor(model => model.TenRap)</th>
+                            <th>@Html.DisplayNameFor(model => model.LoaiRap)</th>
+                            <th>@Html.DisplayNameFor(model => model.KTNgang)</th>
+                            <th>@Html.DisplayNameFor(model => model.KTDoc)</th>
+                            <th>@Html.DisplayNameFor(model => model.CumRap.TenCum)</th>
+                            <th></th>
+                        </tr>
+
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.id)</td>
+                                <td>@Html.DisplayFor(modelItem => item.TenRap)</td>
+                                <td>@Html.DisplayFor(modelItem => item.LoaiRap)</td>
+                                <td>@Html.DisplayFor(modelItem => item.KTNgang)</td>
+                                <td>@Html.DisplayFor(modelItem => item.KTDoc)</td>
+                                <td>@Html.DisplayFor(modelItem => item.CumRap.TenCum)</td>
+                                <td>
+                                    <a href="@Url.Action("Edit","Rap",new { id=item.id})" class="btn btn-success btn-circle btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="@Url.Action("Delete","Rap",new { id=item.id})" class="btn btn-danger btn-circle btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->
+

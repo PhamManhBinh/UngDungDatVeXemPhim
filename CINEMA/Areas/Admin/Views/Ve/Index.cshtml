@@ -1,0 +1,78 @@
+﻿@model IEnumerable<CINEMA.EF.Ve>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        Vé Đã Đặt
+    </h1>
+    <div class="text-danger">
+        @ViewBag.Error
+    </div>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Mã Vé</th>
+                            <th>ID Suất Chiếu</th>
+                            <th>ID Người Đặt</th>
+                            <th>Thời gian đặt vé</th>
+                            <th>Tổng tiền</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tfoot>
+                        <tr>
+                            <th>Mã Vé</th>
+                            <th>ID Suất Chiếu</th>
+                            <th>ID Người Đặt</th>
+                            <th>Thời gian đặt vé</th>
+                            <th>Tổng tiền</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+
+                    <tbody>
+                        @{
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.MaVe)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.SuatChieuId)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ThoiDiemDatVe)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.TongTien)</td>
+                                    <td>
+                                        <a href="@Url.Action("Details","Ve",new { id=item.MaVe})" class="btn btn-info btn-circle btn-sm">
+                                            <i class="fas fa-info"></i>
+                                        </a>
+                                        <a href="@Url.Action("Delete","Ve",new { id=item.MaVe})" class="btn btn-danger btn-circle btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->
+</table>

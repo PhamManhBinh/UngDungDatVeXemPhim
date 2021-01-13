@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="login first grey">
+    <div class="container">
+        <div class="box-wrapper">
+            <div class="box box-border">
+                <div class="box-body">
+                    <h4>Đăng nhập</h4>
+                    <p style="color:red"> @ViewBag.Message</p> <br>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="Email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="fw">
+                                Mật khẩu
+                                <a href="#" class="pull-right">Quên mật khẩu?</a>
+                            </label>
+                            <input type="password" name="Password" class="form-control">
+                        </div>
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                        </div>
+                        <div class="form-group text-center">
+                            <span class="text-muted">Không có tài khoản ?</span> <a href="@Url.Action("Register","Member")">Tạo mới</a>
+                        </div>
+                        <div class="title-line">
+                            hoặc
+                        </div>
+                        <a href="#" class="btn btn-social btn-block facebook">
+                            <i class="ion-social-facebook"></i> Đăng
+                            nhập với facebook
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

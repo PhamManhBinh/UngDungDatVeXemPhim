@@ -1,0 +1,28 @@
+﻿@using CINEMA.EF
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="best-of-the-week">
+        <div class="container">
+            <div class="line top">
+                <div>Danh sách cụm rạp</div>
+            </div>
+            <div id="menu-list">
+                <div class="row">
+                    <ul class="nav-list">
+                        @{ foreach (CumRap item in Model)
+                            {
+                                <div class="col-md-4">
+                                    <div class="maps ">
+                                        <h4><a href="@Url.Action("ChiTiet","CumRap",new { id=item.id})" class="id_Detail" id="id_Detail" style="cursor: pointer;">@item.TenCum</a></h4>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+</section>

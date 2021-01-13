@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "LichChieu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="best-of-the-week">
+    <nav class="menu">
+        <div class="container">
+            <div class="line top">
+                <div>@Model.Ten</div>
+            </div>
+            <div class="col-md-3 col-xs-3 col-sm-3">
+                <img align="right" height="270" width="180" src="/Upload/Poster/@Model.Poster"/>
+            </div>
+            <div class="col-md-9 col-xs-9 col-sm-9">
+                <span class="tt">@Model.Ten</span>
+                <hr>
+                <span class="tt">@Model.NoiDungPhim</span>
+                <footer>
+                    <a href="#" class="love">
+                        <i class="ion-android-favorite-outline ok"></i>
+                        <div>10</div>
+                    </a>
+                    <a class="btn btn-primary more ok1" href="@Url.Action("ChiTiet",new { controller="Phim", id=Model.id})">
+                        <div>Xem Trailer</div>
+                        <div><i class="ion-ios-arrow-thin-right"></i></div>
+                    </a>
+                </footer>
+            </div>
+
+            <div class="line top">
+                <div>LỊCH CHIẾU</div>
+            </div>
+            <div id="menu-list">
+                <ul class="nav-list">
+                    @{
+                        int i = 1;
+                        for (DateTime date = DateTime.Now; i <= 11; date = date.AddDays(1.0))
+                        {
+                            <li class="dropdown magz-dropdown magz-dropdown-megamenu" onclick="getShowTime('@String.Format("{0:yyyy-MM-dd}", date)',@Model.id)">
+                                <a href="#">
+                                    @date.DayOfWeek<br />@String.Format("{0:dd/MM}", date)<i class="ion-ios-arrow-right"></i>
+                                </a>
+                            </li>
+                            i++;
+                        }
+                    }
+                </ul>
+                <p id="showtime"></p>
+            </div>
+</nav>
+</section>
+<script>
+    function getShowTime(date, id) {
+        $.ajax({
+            url: "/Phim/ShowTime",
+            method: "GET",
+            data: { date: date, idPhim: id },
+            success: function (data) {
+                $("#showtime").html(data);
+            }
+        })
+    }
+</script>

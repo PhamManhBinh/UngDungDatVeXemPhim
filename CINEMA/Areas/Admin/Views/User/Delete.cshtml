@@ -1,0 +1,89 @@
+﻿@model CINEMA.EF.User
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Xóa Người Dùng</h1>
+    <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-12 col-md-9">
+            <h3 class="h3 mb-2 text-gray-800">Bạn có chắc chắn muốn xóa người dùng này không?</h3>
+            <dl class="dl-horizontal">
+                <div class="form-group">
+                    <dt>
+                        Email
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        Họ Tên
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        Giới Tính
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Gender)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        Ngày Sinh
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Birthday)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        Số Điện Thoại
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Phone)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        Quyền
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Permission)
+                    </dd>
+                </div>
+
+            </dl>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-danger" /> |
+                    @Html.ActionLink("Quay lại", "Index")
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+
+</div>
+<!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->

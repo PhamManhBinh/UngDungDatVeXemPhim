@@ -1,0 +1,67 @@
+﻿@model CINEMA.EF.Ve
+@{
+    ViewBag.Title = "Success";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    td{
+        padding:8px;
+    }
+</style>
+<section class="best-of-the-week">
+    <div class="container">
+        <div id="alert" class="alert alert-success" role="alert" style="text-align:center;font-family:Arial;font-weight:bold;font-size:20px">
+            Mua vé online thành công! Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!
+        </div>
+        <table align="center" style="margin-left:auto;margin-right:auto;border:1px solid black;text-align:left;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:medium;background-color:antiquewhite">
+            <tr>
+                <td>Mã đặt vé:</td>
+                <td>@Model.MaVe</td>
+            </tr>
+            <tr>
+                <td>Cụm Rạp:</td>
+                <td>
+                    @Model.SuatChieu.Rap.CumRap.TenCum
+                </td>
+            </tr>
+            <tr>
+                <td>Rạp:</td>
+                <td>@Model.SuatChieu.Rap.TenRap</td>
+            </tr>
+            <tr>
+                <td>Thông Tin Phim:</td>
+                <td>@Model.SuatChieu.Phim.Ten</td>
+            </tr>
+            <tr>
+                <td>Suất Chiếu:</td>
+                <td><label>@String.Format("{0:HH:mm}", Model.SuatChieu.ThoiDiemBatDau)</label></td>
+            </tr>
+            <tr>
+                <td>Thông Tin Vé:</td>
+                <td>
+                    @{ foreach (var item in Model.ChiTietVes)
+                        {
+                            <label>@item.Ghe.Hang@item.Ghe.SoGhe</label>
+                        }
+                                }
+                </td>
+            </tr>
+            <tr>
+                <td>Đồ ăn và thức uống:</td>
+                <td>
+                    @{
+                        foreach (var item in Model.ChiTietVe_Food)
+                        {
+                            @item.FastFood.TenMon
+                            <br />
+                        }
+                                }
+                            </td>
+            </tr>
+            <tr>
+                <td>Tổng cộng:</td>
+                <td><label>@ViewBag.TongTien đ</label></td>
+            </tr>
+        </table>
+    </div>
+</section>

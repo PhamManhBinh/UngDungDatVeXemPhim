@@ -1,0 +1,47 @@
+﻿@using CINEMA.EF;
+@{
+                /**/
+
+                Layout = null;
+}
+
+@{
+    if (Model == null)
+    {
+        <div style="width:90%; margin:0 auto; padding:50px; ">
+            <h2 style="text-align: center; color:red">Chưa có lịch chiếu. Vui lòng chọn ngày khác</h2>
+        </div>
+    }
+    else
+    {
+        <style>
+            .site.sitecgv {
+                display: inline-block;
+                width: 100%;
+                border-bottom: 1px solid #222;
+                margin: 0 auto;
+                padding-top: 20px;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+        </style>
+        foreach (IGrouping<string, SuatChieu> group in Model)
+        {
+        <div class="site sitecgv">
+            <div><h3 style="color:red">@group.Key</h3></div>
+            <ul>
+                @foreach (var item in group)
+                {
+                <li>
+                    <a style="font-size:20;border:2px double #b1154a;margin-right:12px;margin-bottom:12px;" href="@Url.Action("Booking",new { controller="DatVe", idSC=item.id})">
+                        <span>@String.Format("{0:HH:mm}", item.ThoiDiemBatDau)<i class="ion-ios-arrow-right"></i></span>
+                    </a>
+                </li>
+                }
+            </ul>
+        </div>
+            }
+
+
+        }
+    }

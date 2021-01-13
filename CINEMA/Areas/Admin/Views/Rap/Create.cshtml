@@ -1,0 +1,52 @@
+﻿@model CINEMA.EF.Rap
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Thêm Rạp</h1>
+    <div class="row justify-content-center">
+
+        <div class="col-xl-8 col-lg-12 col-md-9">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.TenRap, new { htmlAttributes = new { @class = "form-control form-control-user", @id = "exampleInputEmail", @placeholder = "Tên Rạp...", aria_describedby = "emailHelp" } })
+                    @Html.ValidationMessageFor(model => model.TenRap, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.LoaiRap, new { htmlAttributes = new { @class = "form-control form-control-user", @id = "exampleInputEmail", @placeholder = "Loại Rạp...", aria_describedby = "emailHelp" } })
+                    @Html.ValidationMessageFor(model => model.LoaiRap, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.KTNgang, new { htmlAttributes = new { @class = "form-control form-control-user", @id = "exampleInputEmail", @placeholder = "Kích Thước Ngang...", aria_describedby = "emailHelp" } })
+                    @Html.ValidationMessageFor(model => model.KTNgang, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.KTDoc, new { htmlAttributes = new { @class = "form-control form-control-user", @id = "exampleInputEmail", @placeholder = "Kích Thước Dọc...", aria_describedby = "emailHelp" } })
+                    @Html.ValidationMessageFor(model => model.KTDoc, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="CumRapId">Chọn Cụm Rạp</label>
+                    @Html.DropDownList("CumRapId", null, htmlAttributes: new { @class = "form-control form-control-user", @id = "exampleInputEmail", @placeholder = "Chọn Cụm Rạp...", aria_describedby = "emailHelp" })
+                    @Html.ValidationMessageFor(model => model.CumRapId, "", new { @class = "text-danger" })
+                </div>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            }
+        </div>
+    </div>
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    @Html.ActionLink("Quay lại", "Index")
+
+
+</div>
+<!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->

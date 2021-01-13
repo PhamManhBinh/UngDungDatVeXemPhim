@@ -1,0 +1,102 @@
+﻿@model CINEMA.EF.User
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="login first grey">
+    <div class="container">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+            <div class="col-lg-12 d-none d-lg-block bg-register-image"></div>
+            <div class="col-lg-12">
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Thông tin cá nhân</h1>
+                </div>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.id)
+                    @Html.HiddenFor(model => model.Password)
+                    @Html.HiddenFor(model => model.Permission)
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="">Tên Của Bạn</label>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Tên..." } })
+                            @Html.ValidationMessageFor(Model => Model.Name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="">Số Điện Thoại</label>
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Số điện thoại..." } })
+                            @Html.ValidationMessageFor(Model => Model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="">Email</label>
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control form-control-user", placeholder = "Email..." } })
+                                @Html.ValidationMessageFor(Model => Model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="">Ngày Sinh</label>
+                                @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { type = "date", @class = "form-control form-control-user", placeholder = "Tên" } })
+                                @Html.ValidationMessageFor(Model => Model.Birthday, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="">Giới Tính: </label><br />
+                                @Html.RadioButtonFor(model => model.Gender, "true", new { @required = "true" }) Nam
+                                @Html.RadioButtonFor(model => model.Gender, "false", new { @required = "true" }) Nữ
+                                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <!-- <div class="form-group"> -->
+                            <br>
+                            <label for=""><h1><a href="@Url.Action("ChangePassword")">Đổi mật khẩu</a></h1></label>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                }
+                <hr>
+                <div class="line top">
+                    <div>HISTORY</div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ngày Giờ</th>
+                            <th scope="col">Phim</th>
+                            <th scope="col">Rạp</th>
+                            <th scope="col">Cụm Rạp</th>
+                            <th scope="col">Ghế</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var ve in Model.Ves)
+                            {
+                                <tr>
+                                    <td>@ve.ThoiDiemDatVe.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>@ve.SuatChieu.Phim.Ten</td>
+                                    <td>@ve.SuatChieu.Rap.TenRap</td>
+                                    <td>@ve.SuatChieu.Rap.CumRap.TenCum</td>
+                                    <td>
+                                        @foreach (var item in ve.ChiTietVes)
+                                        {
+                                            @Html.Raw(item.Ghe.Hang + item.Ghe.SoGhe + ",")
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

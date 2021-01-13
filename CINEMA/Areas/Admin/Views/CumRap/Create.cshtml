@@ -1,0 +1,41 @@
+﻿@model CINEMA.EF.CumRap
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Thêm Cụm Rạp</h1>
+    <div class="row justify-content-center">
+
+        <div class="col-xl-8 col-lg-12 col-md-9">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.EditorFor(model => model.TenCum, new { htmlAttributes = new { @class = "form-control form-control-user", @id = "exampleInputEmail", @placeholder = "Tên Cụm Rạp...", aria_describedby = "emailHelp" } })
+                    @Html.ValidationMessageFor(model => model.TenCum, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control form-control-user", @id = "exampleInputEmail", @placeholder = "Địa Chỉ...", aria_describedby = "emailHelp" } })
+                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.Maps, new { htmlAttributes = new { @class = "form-control form-control-user", @id = "exampleInputEmail", @placeholder = "Maps...", aria_describedby = "emailHelp" } })
+                    @Html.ValidationMessageFor(model => model.Maps, "", new { @class = "text-danger" })
+                </div>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            }
+            </div>
+    </div>
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    @Html.ActionLink("Quay lại", "Index")
+
+</div>
+<!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->

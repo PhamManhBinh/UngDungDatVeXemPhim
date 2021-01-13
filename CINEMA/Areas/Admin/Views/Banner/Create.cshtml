@@ -1,0 +1,44 @@
+﻿
+@model CINEMA.EF.Banner
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Thêm Quảng Cáo</h1>
+    <div class="row justify-content-center">
+
+        <div class="col-xl-8 col-lg-12 col-md-9">
+            @using (Html.BeginForm("Create", "Banner", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <!--div class="upload-btn-wrapper"-->
+                    <label>Chọn Ảnh Banner: </label>
+                    <input type="file" name="BannerImage" aria-describedby="emailHelp" required /><br />
+                    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                    <!--/div-->
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.Link, new { htmlAttributes = new { @class = "form-control form-control-user", @id = "exampleInputEmail", @placeholder = "Liên Kết...", aria_describedby = "emailHelp" } })
+                    @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
+                </div>
+                <input type="submit" class="btn btn-primary" value="Lưu">
+            }
+        </div>
+    </div>
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    @Html.ActionLink("Quay lại", "Index")
+
+</div>
+<!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->
+

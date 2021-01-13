@@ -1,0 +1,252 @@
+﻿@using CINEMA.EF
+@{
+    ViewBag.Title = "Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Assets/css/datve.css" media="all" />
+<section class="best-of-the-week">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="block">
+                    <div class="line top">
+                        <div>Chọn Ghế</div>
+                    </div>
+                    
+                    @using (Html.BeginForm("CheckOut", "DatVe", FormMethod.Post))
+                    {
+                        <input type="hidden" name="idSuatChieu" value="@ViewBag.SuatChieu.id"/>
+                        <div class="block-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-2 col-xs-12 col-sm-12">
+                                        <h3>@ViewBag.SuatChieu.Phim.Ten</h3>
+                                        <p><img align="left" height="160" width="140" src="/Upload/Poster/@ViewBag.SuatChieu.Phim.Poster" /></p>
+                                        <p><label>@ViewBag.SuatChieu.Rap.CumRap.TenCum</label></p>
+                                        <p>Ngày: <label>@String.Format("{0:dd/MM/yyyy}", ViewBag.SuatChieu.Ngay)</label></p>
+                                        <p>Suất chiếu: <label>@String.Format("{0:HH:mm}", ViewBag.SuatChieu.ThoiDiemBatDau)</label></p>
+                                        <p>Rạp: <label>@ViewBag.SuatChieu.Rap.TenRap</label></p>
+                                        <p>Đơn giá: <label>@ViewBag.SuatChieu.GiaVe đ</label></p>
+                                    </div>
+                                    <div class="col-md-8 col-xs-12 col-sm-12">
+                                        <div>
+                                            <p style="text-align:center;color:gray;font-weight:bold;font-size:x-large">Màn hình</p>
+                                            <p style="width:360px;background-color:gray;height:5px;margin: 0 auto;margin-bottom:10px"></p>
+                                        </div>
+                                        <ul class="social trp">
+                                            <div class="ad" style="padding-left:inherit">
+                                                @{
+                                                    foreach (IGrouping<string, Ghe> group in ViewBag.ListGhe)
+                                                    {
+                                                        <div class="clearfix row" style="position: relative;display: flex;justify-content: center;">
+                                                            @foreach (var ghe in group)
+                                                            {
+                                                                if ((ViewBag.ListGheDaDat as List<Ghe>).Contains(ghe))
+                                                                {
+                                                                    <label onclick="onClickSelect(this,@ViewBag.SuatChieu.GiaVe,'@ghe.Hang@ghe.SoGhe',false)" style="margin:3px;width:35px;height:35px;background:#ffd800;color:#fff;text-align:center;float:right;font-size: 4;line-height:35px;letter-spacing: 2px;cursor: pointer;">
+                                                                        @ghe.Hang@ghe.SoGhe
+                                                                    </label>
+                                                                }
+                                                                else
+                                                                {
+
+                                                                    <label style="margin:3px;width:35px;height:35px;background:#278ac7;color:#fff;text-align:center;float:right;font-size: 4;line-height:35px;letter-spacing: 2px;cursor: pointer;">
+                                                                        <input type="checkbox" readonly name="seats[]" value="@ghe.id" onclick="onClickSelect(this,@ViewBag.SuatChieu.GiaVe,'@ghe.Hang@ghe.SoGhe',true)" class="hide" />
+                                                                        @ghe.Hang@ghe.SoGhe
+                                                                    </label>
+                                                                }
+                                                            }
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-2 col-xs-12 col-sm-12">
+                                        <table style="border:1px solid black;">
+                                            <tr>
+                                                <td align="center" colspan="2"><label>Chú thích</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p style="width:20px;height:20px;background-color:#278ac7"></p></td>
+                                                <td><label>Ghế đơn</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p style="width:20px;height:20px;background-color:#ffd800"></p></td>
+                                                <td><label>Ghế đã bán</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p style="width:20px;height:20px;background-color:red"></p></td>
+                                                <td><label>Ghế đang chọn</label></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="line top">
+                                    <div>Chọn Đồ Ăn</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12 col-sm-12">
+                                        <ol class="products-list" id="products-list">
+                                            @{
+                                                int i = 0;
+                                                string first;
+                                                foreach (var item in ViewBag.ListFood)
+                                                {
+                                                    if (i % 2 == 0) { first = "item first"; } else { first = "item last"; }
+
+
+                                                    <li class="@first">
+                                                        <img src="/Upload/FastFood/@item.Image" alt="@item.TenMon" class="product-image" height="250">
+
+                                                        <div class="product-shop">
+                                                            <div class="f-fix">
+                                                                <div class="product-primary"><h3>@item.TenMon</h3></div>
+                                                                <div class="desc std">
+                                                                    @item.MoTa
+                                                                </div>
+
+                                                                <div class="desc">
+                                                                    <div class="price-box">
+                                                                        <span class="label" style="color:black;">Giá:</span>
+                                                                        <span class="price">@item.Gia&nbsp;₫</span>
+                                                                    </div>
+                                                                    <div class="action">
+                                                                        <div class="button fml103123" onclick="selectFood(this,@item.id,@item.Gia,'@item.TenMon')">-</div>
+                                                                        <input type="hidden" name="foods[@i].id" value="@item.id" />
+                                                                        <input type="number" id="@item.id" class="input-text qty button" style="color:black" name="foods[@i].soLuong" value="0" min="0" max="99" readonly />
+                                                                        <div class="button fml103123" onclick="selectFood(this,@item.id,@item.Gia,'@item.TenMon')">+</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    i++;
+                                                }
+                                            }
+                                        </ol>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <section class="container" style="box-shadow: 0px 0px 5px 1px #333;padding-top:20px;padding-bottom:40px;margin-bottom:20px;background-color:#333">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="col-lg-12">
+                                            <h5 style="text-align:left;color: #fff;">Danh sách ghế đã chọn</h5>
+                                            <div class="note-color">
+                                                <div class="note-col"><p id="total_ticket" style="letter-spacing: 3px;font-size: 17px;color: #fff;">Chưa chọn ghế</p></div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="col-lg-12">
+                                            <h5 style="text-align:left;color: #fff;">Giá vé</h5>
+                                            <div class="note-color">
+                                                <div class="note-col"><p id="total_money" style="letter-spacing: 3px;font-size: 17px;color: #fff;">0</p></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <h5 style="text-align:left;color: #fff;">Combo Đã Chọn</h5>
+                                        <div class="note-color">
+                                            <div class="note-col" id="total_food" style="font-size: 17px;color: #fff;"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <h5 style="text-align:left;color: #fff;">Tổng tiền</h5>
+                                        <div class="note-color">
+                                            <div class="note-col" id="total_pay" style="font-size: 17px;color: #fff;">0</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block btndatve">Đặt vé</button>
+                        </div>
+                    }
+                    <script>
+                        var countSeat = 0;
+                        var giaVe = 0;
+                        var seats = [];
+                        var foods = new Map();
+                        var total = 0;
+                        function onClickSelect(elm, price, name, isEmpty) {
+                            if (!isEmpty) {
+                                alert("Ghế này đã có người đặt!");
+                                return false;
+                            }
+                            //nếu người dùng bỏ chọn ghế này thì chuyển màu và loại bỏ khỏi mảng seats
+                            if (seats.includes(name)) {
+                                elm.removeAttribute("checked");
+                                //xóa khỏi mảng
+                                seats.splice(seats.indexOf(name), 1);
+                                //cập nhật biến đếm và biến giá vé
+                                countSeat--;
+                                giaVe -= price;
+                                total -= price;
+                                //đổi màu
+                                $(elm).parent().css("background-color", "#278ac7");
+                            } else {
+                                elm.setAttribute("checked", "checked");
+                                seats.push(name);
+                                countSeat++;
+                                giaVe += price;
+                                total += price;
+                                $(elm).parent().css("background-color", "red");
+                            }
+
+                            if (countSeat == 0) {
+                                $("#total_ticket").html("Chưa chọn ghế");
+                            } else {
+                                $("#total_ticket").html(seats.toString());
+                            }
+                            $("#total_money").html(giaVe + "đ");
+                            $("#total_pay").html(total + "đ");
+                        }
+                        function selectFood(elm, id, price, name) {
+                            var soluong = parseInt($("#" + id).val());
+                            var tenMon = "";
+                            if ($(elm).html() == "+") {
+                                //cập nhật số lượng
+                                if (soluong + 1 <= 99) {
+                                    soluong++;
+                                    total += price;
+                                }
+                            }
+                            else {
+                                if (soluong - 1 >= 0) {
+                                    soluong--;
+                                    total -= price;
+                                }
+                            }
+
+                            $("#" + id).val(soluong);
+
+                            if (soluong == 0)
+                                foods.delete(name);
+                            else
+                                foods.set(name, soluong);
+
+
+                            foods.forEach((value, key) => {
+                                tenMon += "<p>" + key + " - " + value + "</p>";
+                            });
+
+                            //hiển thị tên món
+                            $("#total_food").html(tenMon);
+                            //hiển thị tổng tiền
+                            $("#total_pay").html(total + "đ");
+                        }
+                    </script>
+                </div>
+                </div>
+            </div>
+    </div>
+</section>

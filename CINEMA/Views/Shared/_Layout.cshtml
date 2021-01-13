@@ -1,0 +1,230 @@
+﻿@using CINEMA.EF;
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Shareable -->
+
+    <title>@ViewBag.Title</title>
+    <!-- Custom fonts for this template -->
+    <link href=/Assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/Assets/scripts/bootstrap/bootstrap.min.css">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="/Assets/scripts/ionicons/css/ionicons.min.css">
+    <!-- Toast -->
+    <link rel="stylesheet" href="/Assets/scripts/toast/jquery.toast.min.css">
+    <!-- OwlCarousel -->
+    <link rel="stylesheet" href="/Assets/scripts/owlcarousel/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/Assets/scripts/owlcarousel/dist/assets/owl.theme.default.min.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/Assets/scripts/magnific-popup/dist/magnific-popup.css">
+    <link rel="stylesheet" href="/Assets/scripts/sweetalert/dist/sweetalert.css">
+    <!-- Custom style -->
+    <link rel="stylesheet" href="/Assets/css/style.css">
+    <link rel="stylesheet" href="/Assets/css/skins/all.css">
+    <link rel="stylesheet" href="/Assets/css/demo.css">
+</head>
+
+<body class="skin-orange">
+
+    <header class="primary">
+        <div class="fullfooter">
+
+        </div>
+        <div class="firstbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-12">
+                        <div class="brand">
+                            <a href="/">
+                                <img src="/Assets/images/cgvlogo.png" alt="Magz Logo" id="logo">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-12">
+                        <form class="search" autocomplete="off" action="@Url.Action("TimKiem","Phim")">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" name="query" class="form-control" placeholder="Tìm kiếm tên phim, đạo diễn, diễn viên,...">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary"><i class="ion-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-4 col-sm-12 text-right">
+                        <ul class="nav-icons">
+                            @{
+                                if (Session["user"] != null)
+                                {
+                                    <li>
+                                        <a href="/Member/">
+                                            <i class="ion-person"></i>
+                                            <div>@((Session["user"] as User).Name)</div>
+
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/Member/Logout">
+                                            <i class="ion-person-delete"></i>
+                                            <div>Đăng xuất</div>
+                                        </a>
+                                    </li>
+
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="/Member/Register">
+                                            <i class="ion-person-add"></i>
+                                            <div>Đăng ký</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/Member/Login">
+                                            <i class="ion-person"></i>
+                                            <div>Đăng nhập</div>
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start nav -->
+        <nav class="menu hello">
+            <div class="container">
+                <div class="brand">
+                    <a href="/">
+                        <img src="/Assets/images/cgvlogo.png" alt="Magz Logo">
+                    </a>
+                </div>
+                <div class="mobile-toggle">
+                    <a href="#" data-toggle="menu" data-target="#menu-list"><i class="ion-navicon-round"></i></a>
+                </div>
+                <div class="mobile-toggle">
+                    <a href="#" data-toggle="sidebar" data-target="#sidebar"><i class="ion-ios-arrow-left"></i></a>
+                </div>
+                <div id="menu-list">
+                    <ul class="nav-list">
+                        <li class="for-tablet nav-title"><a>Menu</a></li>
+                        <li class="dropdown">
+                            @Html.ActionLink("PHIM", "Index", "Phim")
+                        </li>
+                        <li class="dropdown">
+                            <a href="@Url.Action("Index","CumRap")">RẠP CGV<i class="ion-ios-arrow-right"></i></a>
+                        </li>
+                        <li class="dropdown magz-dropdown">
+                            <a href="#">THÀNH VIÊN<i class="ion-ios-arrow-right"></i></a>
+                            <ul class="dropdown-menu">
+                                @{
+                                    if (Session["user"] == null)
+                                    {
+                                        <li><a href="/Member/Register"><i class="icon ion-heart"></i> Đăng ký</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a href="/Member/">
+                                                <i class="icon ion-person"></i> Tài
+                                                khoản của tôi
+                                            </a>
+                                        </li>
+                                    }
+
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- End nav -->
+    </header>
+
+    @RenderBody()
+
+    <!-- Start footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-xs-12 col-sm-6">
+                    <div class="block-body">
+                        <ul class="social trp">
+                            <li>
+                                <a href="#" class="facebook">
+                                    <svg>
+                                        <rect width="0" height="0" />
+                                    </svg>
+                                    <i class="ion-social-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="twitter">
+                                    <svg>
+                                        <rect width="0" height="0" />
+                                    </svg>
+                                    <i class="ion-social-twitter-outline"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="instagram">
+                                    <svg>
+                                        <rect width="0" height="0" />
+                                    </svg>
+                                    <i class="ion-social-instagram-outline"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="linkedin">
+                                    <svg>
+                                        <rect width="0" height="0" />
+                                    </svg>
+                                    <i class="ion-social-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="logo-footer-cgv">&nbsp;</div>
+                    <div class="text-cgv-address">
+                        <h3>ỨNG DỤNG WEB ĐẶT VÉ XEM PHIM ONLINE</h3>
+                        <p>Refer: CGV</p>
+                        <p>Edit Layout: Phạm Mạnh Bình</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="fullfooter">
+
+    </div>
+    <!-- End Footer -->
+    <!-- JS -->
+    <script src="/Assets/js/jquery.js"></script>
+    <script src="/Assets/js/jquery.migrate.js"></script>
+    <script src="/Assets/scripts/bootstrap/bootstrap.min.js"></script>
+    <script>var $target_end = $(".best-of-the-week");</script>
+    <script src="/Assets/scripts/jquery-number/jquery.number.min.js"></script>
+    <script src="/Assets/scripts/owlcarousel/dist/owl.carousel.min.js"></script>
+    <script src="/Assets/scripts/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    <script src="/Assets/scripts/easescroll/jquery.easeScroll.js"></script>
+    <script src="/Assets/scripts/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/Assets/scripts/toast/jquery.toast.min.js"></script>
+    <script src="/Assets/js/demo.js"></script>
+    <script src="/Assets/js/e-magz.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+﻿@model CINEMA.EF.Ve
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Chi Tiết Vé</h1>
+    <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-12 col-md-9">
+            <dl class="dl-horizontal">
+                <div class="form-group">
+                    <dt>
+                        Mã Đặt Vé
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MaVe)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        Người Đặt
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.User.Name)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        Phim
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SuatChieu.Phim.Ten)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        Suất Chiếu
+                    </dt>
+
+                    <dd>
+                        @String.Format("{0:dd/MM/yyyy}", Model.SuatChieu.Ngay) @String.Format("{0:HH:mm}", Model.SuatChieu.ThoiDiemBatDau)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        Ghế
+                    </dt>
+
+                    <dd>
+                        @foreach (var ghe in Model.ChiTietVes)
+                        {
+                            @ghe.Ghe.Hang@ghe.Ghe.SoGhe@Html.Raw(",")
+                        }
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        Đồ Ăn và Thức Uống
+                    </dt>
+
+                    <dd>
+                        @foreach (var food in Model.ChiTietVe_Food)
+                        {
+                            @food.FastFood.TenMon@Html.Raw(" - ")@food.SoLuong<br/>
+                        }
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        Thời gian đặt vé
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ThoiDiemDatVe)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        Tổng tiền
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TongTien)
+                    </dd>
+                </div>
+            </dl>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    @Html.ActionLink("Quay lại", "Index")
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+
+</div>
+<!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->
