@@ -14,7 +14,7 @@ create table [User](
     "Permission" nvarchar(5) NOT NULL DEFAULT('User'),
 );
 
-insert into [User](Email,Password,Name,Phone,Gender,Birthday,Permission) values('phambinh@gmail.com','123',N'Phạm Mạnh Bình','0928981048',1,'2000-01-08','Admin')
+insert into [User](Email,Password,Name,Phone,Gender,Birthday,Permission) values('phammanhbinh.it@gmail.com','123',N'Phạm Mạnh Bình','0928981048',1,'2000-01-08','Admin')
 
 create table CumRap(
     "id" int NOT NULL primary key IDENTITY(1,1),
