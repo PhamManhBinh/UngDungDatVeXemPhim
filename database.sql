@@ -165,3 +165,11 @@ begin
 end
 
 
+create trigger CheckVe on ChiTietVe
+after insert,update as
+begin
+	DECLARE @T INT
+	SET @T = (select COUNT(*) from Ve,ChiTietVe,inserted where ChiTietVe.MaGhe=inserted.MaGhe and Ve.SuatChieuId and Ve.MaVe=ChiTietVe.MaVe and inserted.MaVe=Ve.MaVe)
+	IF(@T>0)
+		rollback tran
+end
